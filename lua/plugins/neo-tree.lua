@@ -7,7 +7,7 @@ return {
     'MunifTanjim/nui.nvim',
   },
   keys = {
-    { '<C-b>', '<cmd>Neotree toggle<cr>', desc = 'Toggle Neo-tree' },
+    { '<C-b>', '<cmd>Neotree focus<cr>', desc = 'Focus Neo-tree' },
   },
   config = function()
     require('neo-tree').setup {
@@ -15,9 +15,8 @@ return {
       filesystem = {
         follow_current_file = { enabled = true },
         hijack_netrw_behavior = 'disabled',
-        -- THIS IS THE NEW SECTION
         filtered_items = {
-          visible = true, -- This says "show me everything by default"
+          visible = true,
           hide_dotfiles = false,
           hide_gitignored = true,
         },
