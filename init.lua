@@ -197,10 +197,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -239,6 +235,15 @@ rtp:prepend(lazypath)
 
 -- [[ Personal Mappings I added after the fact :) ]]
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<cmd>w<cr>', { desc = 'Save file' })
+vim.keymap.set('n', '<S-Right>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<S-Left>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer' })
+
+-- 2. WINDOW (SPLIT) NAVIGATION: Ctrl + Arrow Keys
+-- Jumps between the File Tree, Terminal, and Code splits
+vim.keymap.set('n', '<C-Left>', '<C-w>h', { desc = 'Move to Left Window' })
+vim.keymap.set('n', '<C-Right>', '<C-w>l', { desc = 'Move to Right Window' })
+vim.keymap.set('n', '<C-Up>', '<C-w>k', { desc = 'Move to Upper Window' })
+vim.keymap.set('n', '<C-Down>', '<C-w>j', { desc = 'Move to Lower Window' })
 
 -- [[ Configure and install plugins ]]
 --
