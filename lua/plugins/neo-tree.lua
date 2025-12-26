@@ -14,8 +14,13 @@ return {
       close_if_last_window = true,
       filesystem = {
         follow_current_file = { enabled = true },
-        -- CHANGE THIS: Stop it from taking over the main screen
         hijack_netrw_behavior = 'disabled',
+        -- THIS IS THE NEW SECTION
+        filtered_items = {
+          visible = true, -- This says "show me everything by default"
+          hide_dotfiles = false,
+          hide_gitignored = true,
+        },
       },
       window = {
         mappings = {
