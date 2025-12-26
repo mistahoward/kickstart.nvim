@@ -107,6 +107,8 @@ vim.o.number = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
+vim.opt.termguicolors = true
+
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 vim.g.loaded_netrw = 1
@@ -234,6 +236,9 @@ end
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
+
+-- [[ Personal Mappings I added after the fact :) ]]
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<cmd>w<cr>', { desc = 'Save file' })
 
 -- [[ Configure and install plugins ]]
 --
