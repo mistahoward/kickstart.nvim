@@ -1,43 +1,40 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  branch = 'master', -- FORCE the stable version so our config works
   build = ':TSUpdate',
-  config = function()
-    -- In the stable version, this module still exists and works perfectly
-    require('nvim-treesitter.configs').setup {
-      ensure_installed = {
-        'c',
-        'lua',
-        'vim',
-        'vimdoc',
-        'query',
-        'rust',
-        'toml',
-        'c_sharp', -- C# support
-        'html',
-        'css',
-        'scss',
-        'javascript',
-        'typescript',
-        'tsx',
-        'json',
-        'yaml',
-        'python',
-        'markdown',
-        'markdown_inline',
-      },
-
-      sync_install = false,
-      auto_install = true,
-
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-
-      indent = {
-        enable = true,
-      },
-    }
-  end,
+  main = 'nvim-treesitter.config',
+  opts = {
+    ensure_installed = {
+      'bash',
+      'c',
+      'c_sharp',
+      'css',
+      'diff',
+      'html',
+      'javascript',
+      'json',
+      'lua',
+      'luadoc',
+      'markdown',
+      'markdown_inline',
+      'python',
+      'query',
+      'rust',
+      'scss',
+      'toml',
+      'tsx',
+      'typescript',
+      'vim',
+      'vimdoc',
+      'yaml',
+    },
+    auto_install = true,
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = { 'ruby' },
+    },
+    indent = {
+      enable = true,
+      disable = { 'ruby' },
+    },
+  },
 }
