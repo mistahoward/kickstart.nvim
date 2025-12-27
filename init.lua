@@ -237,6 +237,9 @@ rtp:prepend(lazypath)
 vim.keymap.set({ 'n', 'i', 'v' }, '<C-s>', '<cmd>w<cr>', { desc = 'Save file' })
 vim.keymap.set('n', '<S-Right>', '<cmd>BufferLineCycleNext<cr>', { desc = 'Next Buffer' })
 vim.keymap.set('n', '<S-Left>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev Buffer' })
+vim.keymap.set('n', '<leader>x', ':bd<CR>', { desc = 'Close current buffer' })
+vim.keymap.set('n', '<C-q>', ':bd<CR>', { desc = 'Close current buffer' })
+vim.keymap.set('n', '<C-n>', '<cmd>enew<cr>', { desc = 'New Empty Buffer' })
 
 -- 2. WINDOW (SPLIT) NAVIGATION: Ctrl + Arrow Keys
 -- Jumps between the File Tree, Terminal, and Code splits
