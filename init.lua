@@ -391,9 +391,10 @@ require('lazy').setup({
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
       opts = {
+        -- 'default' usually means Ctrl+y to accept.
         keymap = {
           preset = 'default',
-          ['<CR>'] = { 'accept', 'fallback' }, -- <CR> means Enter key
+          ['<CR>'] = { 'select_and_accept', 'fallback' }, -- <CR> means Enter key
         },
       },
     },
