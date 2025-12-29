@@ -361,7 +361,6 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
-
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -391,6 +390,12 @@ require('lazy').setup({
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
+      opts = {
+        keymap = {
+          preset = 'default',
+          ['<CR>'] = { 'accept', 'fallback' }, -- <CR> means Enter key
+        },
+      },
     },
     config = function()
       -- Brief aside: **What is LSP?**
