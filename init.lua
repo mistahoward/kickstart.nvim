@@ -264,6 +264,7 @@ require('lazy').setup({
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
   { 'nobbmaestro/nvim-andromeda', dependencies = { 'tjdevries/colorbuddy.nvim' } },
   { import = 'plugins' },
+  'simrat39/rust-tools.nvim',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -894,5 +895,15 @@ require('lazy').setup({
 })
 vim.opt.number = true
 vim.opt.relativenumber = true
+local rt = require 'rust-tools'
+
+rt.setup {
+  server = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set('n', '<C-space>', rt.hover_actions.hover_actions, { buffer = bufnr })
+      vim.keymap.set('n', '<Leader>a', rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+}:
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
