@@ -931,7 +931,6 @@ require('lazy').setup({
 })
 vim.opt.number = true
 vim.opt.relativenumber = true
-local rt = require 'rust-tools'
 
 require('terminal_keeper').setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
