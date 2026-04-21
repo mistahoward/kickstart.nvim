@@ -240,6 +240,9 @@ vim.keymap.set('n', '<S-Left>', '<cmd>BufferLineCyclePrev<cr>', { desc = 'Prev B
 vim.keymap.set('n', '<leader>x', ':bd<CR>', { desc = 'Close current buffer' })
 vim.keymap.set('n', '<C-q>', ':bd<CR>', { desc = 'Close current buffer' })
 vim.keymap.set('n', '<C-n>', '<cmd>enew<cr>', { desc = 'New Empty Buffer' })
+vim.keymap.set('n', '<leader>tk', function()
+  require('terminal_keeper').ignite_engines()
+end, { desc = '[T]erminal [K]eeper: Launch Sessions' })
 
 -- 2. WINDOW (SPLIT) NAVIGATION: Ctrl + Arrow Keys
 -- Jumps between the File Tree, Terminal, and Code splits
@@ -247,6 +250,13 @@ vim.keymap.set('n', '<C-Left>', '<C-w>h', { desc = 'Move to Left Window' })
 vim.keymap.set('n', '<C-Right>', '<C-w>l', { desc = 'Move to Right Window' })
 vim.keymap.set('n', '<C-Up>', '<C-w>k', { desc = 'Move to Upper Window' })
 vim.keymap.set('n', '<C-Down>', '<C-w>j', { desc = 'Move to Lower Window' })
+
+vim.filetype.add {
+  extension = {
+    razor = 'razor',
+    cshtml = 'razor',
+  },
+}
 
 -- [[ Configure and install plugins ]]
 --
@@ -265,6 +275,19 @@ require('lazy').setup({
   { 'nobbmaestro/nvim-andromeda', dependencies = { 'tjdevries/colorbuddy.nvim' } },
   { import = 'plugins' },
   'simrat39/rust-tools.nvim',
+  { 'stevearc/overseer.nvim', opts = {} },
+  {
+    'seblyng/roslyn.nvim',
+    ft = { 'cs', 'razor' },
+    opts = {
+      -- The default configuration is perfectly fine to get started!
+    },
+  },
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -382,7 +405,15 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-      { 'mason-org/mason.nvim', opts = {} },
+      {
+        'mason-org/mason.nvim',
+        opts = {
+          registries = {
+            'github:mason-org/mason-registry',
+            'github:Crashdummyy/mason-registry',
+          },
+        },
+      },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
@@ -394,8 +425,12 @@ require('lazy').setup({
       opts = {
         -- 'default' usually means Ctrl+y to accept.
         keymap = {
-          preset = 'default',
+          preset = 'super-tab',
           ['<CR>'] = { 'select_and_accept', 'fallback' }, -- <CR> means Enter key
+        },
+        appearance = {
+          use_nvim_cmp_as_default = true,
+          nerd_font_variant = 'mono',
         },
       },
     },
@@ -623,6 +658,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'roslyn',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -897,15 +933,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 local rt = require 'rust-tools'
 
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  },
-})
+require('terminal_keeper').setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
